@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Onpar Labs — Forward Deployed Engineering for AI-native enterprises</title>
 <meta name="description" content="Onpar Labs is a forward deployed engineering firm. Since 2018, its engineers have embedded within AI-native enterprises to take frontier models from pilot to production at institutional scale.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -72,9 +73,8 @@
   .nav.scrolled{background:rgba(7,7,7,.72);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-color:var(--line)}
   .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
   .brand{display:flex;align-items:center;gap:12px;font-weight:500;letter-spacing:-.01em;font-size:15px}
-  .brand .mark{width:22px;height:22px;position:relative}
-  .brand .mark::before,.brand .mark::after{content:"";position:absolute;inset:0;border:1.5px solid var(--fg)}
-  .brand .mark::after{transform:rotate(45deg) scale(.62);border-color:var(--accent)}
+  .brand .mark{width:22px;height:22px;color:var(--fg);flex:none}
+  .brand .mark .accent{stroke:var(--accent)}
   .nav ul{display:flex;gap:32px;list-style:none}
   .nav ul a{font-size:13px;color:var(--fg-2);transition:color .2s;position:relative}
   .nav ul a:hover{color:var(--fg)}
@@ -266,7 +266,7 @@
 <!-- ========== NAV ========== -->
 <header class="nav" id="nav">
   <div class="wrap">
-    <a href="#" class="brand" aria-label="Onpar Labs"><span class="mark"></span>Onpar Labs</a>
+    <a href="#" class="brand" aria-label="Onpar Labs"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="6"><path d="M8 13H56" class="accent"/><path d="M32 13V54M32 13L13 48M32 13L51 48"/></svg>Onpar Labs</a>
     <ul>
       <li><a href="#practice">Practice</a></li>
       <li><a href="#deployment">Deployment</a></li>
@@ -475,7 +475,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a href="#" class="brand"><span class="mark"></span>Onpar Labs</a>
+        <a href="#" class="brand"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="6"><path d="M8 13H56" class="accent"/><path d="M32 13V54M32 13L13 48M32 13L51 48"/></svg>Onpar Labs</a>
         <p>Forward deployed engineering for AI-native enterprises. Established 2018. Operating across North America, Europe, and India.</p>
       </div>
       <div><h5>Firm</h5><ul><li><a href="#practice">Practice</a></li><li><a href="#deployment">Deployment model</a></li><li><a href="#impact">Impact studies</a></li><li><a href="#principles">Principles</a></li></ul></div>
