@@ -6,6 +6,8 @@
 <title>Onpar Labs — Forward Deployed Engineering for AI-native enterprises</title>
 <meta name="description" content="Onpar Labs is a forward deployed engineering firm. Since 2018, its engineers have embedded within AI-native enterprises to take frontier models from pilot to production at institutional scale.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://embed.typeform.com/next/css/popup.css">
+<script src="https://embed.typeform.com/next/embed.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -858,7 +860,17 @@
       location.href='mailto:deploy@onpar.in?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
       show(screens.length-1);
     }
-    function open(){ lastFocus=document.activeElement; ev.classList.add('open'); document.body.style.overflow='hidden'; ev.focus({preventScroll:true}); show(0); }
+    const TF_ID='NeBpvS8a'; let tfPopup=null;
+    function openNative(){ lastFocus=document.activeElement; ev.classList.add('open'); document.body.style.overflow='hidden'; ev.focus({preventScroll:true}); show(0); }
+    function open(){
+      if (window.tf && typeof window.tf.createPopup==='function'){
+        try{
+          tfPopup = tfPopup || window.tf.createPopup(TF_ID,{size:100, hidden:{source:'onpar.in'}, onClose:()=>{ if(location.hash==='#apply') history.replaceState(null,'',location.pathname); }});
+          tfPopup.open(); return;
+        }catch(e){ console.warn('typeform popup failed, using native flow', e); }
+      }
+      openNative();
+    }
     function close(){ ev.classList.remove('open'); document.body.style.overflow=''; if(lastFocus) lastFocus.focus(); }
     document.querySelectorAll('[data-open="eval"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();open();}));
     ev.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',next));
@@ -871,7 +883,7 @@
     });
     ev.querySelectorAll('textarea,input').forEach(f=>f.addEventListener('input',()=>{const e=f.parentElement.querySelector('.err'); if(e) e.classList.remove('show');}));
     try{ const d=JSON.parse(localStorage.getItem('onpar.eval')||'null'); if(d) ev.querySelectorAll('textarea,input').forEach(f=>{ if(d[f.name]) f.value=d[f.name]; }); }catch(e){}
-    if(location.hash==='#apply') open();
+    if(location.hash==='#apply'){ if(window.tf) open(); else { let n=0; const t=setInterval(()=>{ if(window.tf||++n>20){ clearInterval(t); open(); } },150); } }
   })();
 
   let ok=false; try { ok=initGL(); } catch(e){ ok=false; }
