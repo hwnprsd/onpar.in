@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Onpar Labs — Forward Deployed Engineering for AI-native enterprises</title>
-<meta name="description" content="Onpar Labs embeds forward deployed engineers inside AI-native enterprises. Eight years, production systems only.">
+<meta name="description" content="Onpar Labs is a forward deployed engineering firm. Since 2018, its engineers have embedded within AI-native enterprises to take frontier models from pilot to production at institutional scale.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -40,31 +40,32 @@
   img,svg,canvas{display:block;max-width:100%}
   button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
+  /* ---------- layers ---------- */
+  #gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .rails{position:fixed;inset:0;pointer-events:none;z-index:1;max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);padding:0 var(--gutter)}
+  .rails i{border-left:1px solid rgba(255,255,255,.035)}
+  .rails i:last-child{border-right:1px solid rgba(255,255,255,.035)}
+  @media (max-width:800px){.rails{grid-template-columns:repeat(3,1fr)}.rails i:nth-child(n+4){display:none}}
+  .page{position:relative;z-index:2}
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.035;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size:160px 160px}
+
   /* ---------- utilities ---------- */
   .wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
   .mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
   .serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
-  .muted{color:var(--fg-2)}
-  .dim{color:var(--fg-3)}
-  .accent{color:var(--accent)}
-  .hr{height:1px;background:var(--line)}
   .kicker{display:flex;align-items:center;gap:12px;color:var(--fg-2)}
   .kicker::before{content:"";width:8px;height:8px;border:1px solid var(--fg-3);transform:rotate(45deg);flex:none}
   .kicker.on::before{background:var(--accent);border-color:var(--accent)}
+  .num{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--fg-3);display:flex;align-items:center;gap:12px;text-transform:uppercase}
+  .num::after{content:"";flex:1;height:1px;background:var(--line);max-width:120px}
+  .num b{color:var(--fg-2);font-weight:500}
 
   /* ---------- reveal ---------- */
   .rv{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
   .rv.in{opacity:1;transform:none}
   .rv[data-d="1"]{transition-delay:.08s}.rv[data-d="2"]{transition-delay:.16s}.rv[data-d="3"]{transition-delay:.24s}.rv[data-d="4"]{transition-delay:.32s}
-
-  /* ---------- grain + grid overlay ---------- */
-  .grain{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.035;mix-blend-mode:screen;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    background-size:160px 160px}
-  .rails{position:fixed;inset:0;pointer-events:none;z-index:0;max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);padding:0 var(--gutter)}
-  .rails i{border-left:1px solid rgba(255,255,255,.035)}
-  .rails i:last-child{border-right:1px solid rgba(255,255,255,.035)}
-  @media (max-width:800px){.rails{grid-template-columns:repeat(3,1fr)}.rails i:nth-child(n+4){display:none}}
 
   /* ---------- nav ---------- */
   .nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
@@ -85,10 +86,9 @@
 
   /* ---------- hero ---------- */
   .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-top:120px;padding-bottom:0;isolation:isolate}
-  #field{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.9}
-  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
-    radial-gradient(60% 50% at 70% 40%,rgba(216,255,61,.05),transparent 60%),
-    linear-gradient(to bottom,rgba(7,7,7,.2),rgba(7,7,7,.0) 40%,rgba(7,7,7,.9) 100%)}
+  #field{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.9;display:none}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+    linear-gradient(to bottom,rgba(7,7,7,.35),rgba(7,7,7,0) 35%,rgba(7,7,7,.85) 100%)}
   .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:auto;flex-wrap:wrap}
   @media (max-width:600px){.hero-top #clock{display:none}.hero{padding-top:96px}}
   .hero-top .mono{color:var(--fg-3)}
@@ -99,10 +99,10 @@
   .h1 .w span{display:inline-block;transform:translateY(110%);transition:transform 1.1s var(--ease)}
   .h1.in .w span{transform:none}
   .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;margin-top:clamp(28px,4vh,48px);align-items:end}
-  .lede{font-size:clamp(17px,1.5vw,21px);line-height:1.45;color:var(--fg-2);max-width:48ch;letter-spacing:-.012em}
+  .lede{font-size:clamp(17px,1.5vw,21px);line-height:1.45;color:var(--fg-2);max-width:50ch;letter-spacing:-.012em}
   .lede b{font-weight:500;color:var(--fg)}
   .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-  .btn{display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 20px;font-size:14px;letter-spacing:-.01em;border:1px solid var(--line-2);position:relative;overflow:hidden;transition:color .3s,border-color .3s}
+  .btn{display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 20px;font-size:14px;letter-spacing:-.01em;border:1px solid var(--line-2);position:relative;overflow:hidden;transition:color .3s,border-color .3s;background:rgba(7,7,7,.5)}
   .btn::before{content:"";position:absolute;inset:0;background:var(--fg);transform:translateY(101%);transition:transform .5s var(--ease)}
   .btn>*{position:relative;z-index:1}
   .btn:hover{color:#000;border-color:var(--fg)}
@@ -112,7 +112,7 @@
   .btn.primary:hover{border-color:var(--accent)}
   .btn svg{width:14px;height:14px}
   .hero-aside{justify-self:end;width:100%;max-width:380px}
-  .console{border:1px solid var(--line);background:rgba(12,12,12,.7);backdrop-filter:blur(8px);font-family:var(--mono);font-size:11.5px;line-height:1.75;color:var(--fg-2);padding:16px 18px;position:relative}
+  .console{border:1px solid var(--line);background:rgba(10,10,10,.72);backdrop-filter:blur(8px);font-family:var(--mono);font-size:11.5px;line-height:1.75;color:var(--fg-2);padding:16px 18px;position:relative}
   .console::before{content:"";position:absolute;top:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.7}
   .console .row{display:flex;justify-content:space-between;gap:16px;white-space:nowrap}
   .console .row span:last-child{color:var(--fg)}
@@ -124,7 +124,6 @@
   .stats>div:last-child{border-right:0}
   .stats>div+div{padding-left:20px}
   .stats .n{font-size:clamp(28px,3vw,40px);letter-spacing:-.04em;line-height:1;font-weight:300;margin-bottom:8px;font-variant-numeric:tabular-nums}
-  .stats .n sup{font-size:.45em;vertical-align:top;color:var(--accent);margin-left:2px}
   .stats .mono{color:var(--fg-3)}
   @media (max-width:900px){
     .hero-grid{grid-template-columns:1fr}
@@ -136,22 +135,20 @@
   }
 
   /* ---------- ticker ---------- */
-  .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--bg-2);position:relative}
+  .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:rgba(12,12,12,.9);position:relative}
   .ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
   .ticker::before{left:0;background:linear-gradient(90deg,var(--bg-2),transparent)}
   .ticker::after{right:0;background:linear-gradient(270deg,var(--bg-2),transparent)}
-  .ticker .track{display:flex;width:max-content;animation:scroll 42s linear infinite}
+  .ticker .track{display:flex;width:max-content;animation:scroll 48s linear infinite}
   .ticker:hover .track{animation-play-state:paused}
-  .ticker .item{display:flex;align-items:center;gap:28px;padding:16px 28px 16px 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);white-space:nowrap}
-  .ticker .item i{width:4px;height:4px;background:var(--fg-3);transform:rotate(45deg)}
+  .ticker .item{display:flex;align-items:center;gap:20px;padding:16px 36px 16px 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);white-space:nowrap}
   .ticker .item b{font-weight:500;color:var(--fg-2)}
+  .ticker .item em{font-style:normal;color:var(--fg-3)}
   @keyframes scroll{to{transform:translateX(-50%)}}
 
   /* ---------- section chrome ---------- */
   .sec{padding:clamp(88px,12vh,160px) 0;position:relative}
   .sec-head{display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:end;margin-bottom:clamp(40px,6vh,72px)}
-  .num{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--fg-3);display:flex;align-items:center;gap:12px}
-  .num::after{content:"";flex:1;height:1px;background:var(--line);max-width:120px}
   .h2{font-size:clamp(34px,4.4vw,64px);line-height:1.02;letter-spacing:-.04em;font-weight:400;text-wrap:balance}
   .h2 .serif{font-size:1.06em}
   .h3{font-size:clamp(20px,1.8vw,26px);letter-spacing:-.025em;line-height:1.2;font-weight:400}
@@ -161,13 +158,13 @@
   .pillars{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:var(--line);gap:1px}
   .pillar{background:var(--bg);padding:32px 28px 36px;position:relative;min-height:420px;display:flex;flex-direction:column;overflow:hidden;transition:background .4s}
   .pillar:hover{background:var(--bg-2)}
-  .pillar .idx{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--fg-3);display:flex;justify-content:space-between}
+  .pillar .idx{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--fg-3);display:flex;justify-content:space-between;text-transform:uppercase}
   .pillar .idx em{font-style:normal;color:var(--accent);opacity:0;transition:opacity .3s}
   .pillar:hover .idx em{opacity:1}
   .pillar .glyph{margin:36px 0 auto;height:96px;color:var(--fg-2)}
   .pillar .glyph svg{height:100%;width:auto}
   .pillar .h3{margin-top:32px;margin-bottom:12px}
-  .pillar p{color:var(--fg-2);font-size:15px;line-height:1.55;max-width:34ch}
+  .pillar p{color:var(--fg-2);font-size:15px;line-height:1.55;max-width:36ch}
   .pillar ul{list-style:none;margin-top:20px;display:flex;flex-wrap:wrap;gap:6px}
   .pillar li{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);border:1px solid var(--line);padding:5px 8px}
   .pillar::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
@@ -177,7 +174,7 @@
   /* ---------- engagement timeline ---------- */
   .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px}
   .tl>div{background:var(--bg);padding:26px 24px 30px;position:relative}
-  .tl .wk{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--fg-3);margin-bottom:56px;display:flex;justify-content:space-between}
+  .tl .wk{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--fg-3);margin-bottom:56px;display:flex;justify-content:space-between;text-transform:uppercase}
   .tl .bar{position:absolute;left:24px;right:24px;top:58px;height:2px;background:var(--line)}
   .tl .bar i{position:absolute;inset:0;background:var(--accent);transform-origin:left;transform:scaleX(0);transition:transform 1.2s var(--ease)}
   .tl.in .bar i{transform:none}
@@ -189,35 +186,36 @@
   @media (max-width:1000px){.tl{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:600px){.tl{grid-template-columns:1fr}}
 
-  /* ---------- split feature: how we work ---------- */
+  /* ---------- split feature: approach ---------- */
   .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:start}
   .split .sticky{position:sticky;top:96px}
-  .list{border-top:1px solid var(--line)}
-  .list>div{padding:28px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:56px 1fr;gap:16px;transition:padding .3s}
+  .list{border-top:1px solid var(--line);background:rgba(7,7,7,.6)}
+  .list>div{padding:28px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:56px 1fr;gap:16px}
   .list .k{font-family:var(--mono);font-size:11px;color:var(--fg-3);letter-spacing:.08em;padding-top:5px}
   .list .h3{margin-bottom:8px}
-  .list p{color:var(--fg-2);font-size:15px;max-width:44ch;line-height:1.55}
+  .list p{color:var(--fg-2);font-size:15px;max-width:46ch;line-height:1.55}
   @media (max-width:900px){.split{grid-template-columns:1fr}.split .sticky{position:static}}
 
   /* ---------- big statement ---------- */
   .statement{padding:clamp(96px,16vh,200px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);position:relative;overflow:hidden}
-  .statement .big{font-size:clamp(28px,4.2vw,64px);line-height:1.08;letter-spacing:-.04em;font-weight:300;max-width:22ch;text-wrap:balance}
+  .statement .big{font-size:clamp(28px,4.2vw,64px);line-height:1.08;letter-spacing:-.04em;font-weight:300;max-width:24ch;text-wrap:balance}
   .statement .big span{color:var(--fg-3);transition:color .5s}
   .statement .big span.lit{color:var(--fg)}
   .statement .big .serif{color:var(--accent)!important}
   .statement .foot{margin-top:40px;display:flex;gap:40px;flex-wrap:wrap;color:var(--fg-3)}
 
-  /* ---------- field notes ---------- */
+  /* ---------- impact ---------- */
   .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
   .note{background:var(--bg);padding:28px;display:flex;flex-direction:column;min-height:380px;position:relative;transition:background .4s}
   .note:hover{background:var(--bg-3)}
   .note .tag{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)}
+  .note .tag b{color:var(--fg-2);font-weight:500}
   .note .metric{margin:36px 0 auto}
   .note .metric .n{font-size:clamp(48px,5vw,72px);line-height:.9;letter-spacing:-.05em;font-weight:300;font-variant-numeric:tabular-nums}
   .note .metric .n small{font-size:.4em;letter-spacing:-.02em;color:var(--fg-2);margin-left:6px;font-weight:400}
   .note .metric .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);margin-top:12px}
   .note .h3{font-size:18px;margin-top:28px;margin-bottom:10px}
-  .note p{color:var(--fg-2);font-size:14px;line-height:1.55}
+  .note p{color:var(--fg-2);font-size:14px;line-height:1.55;padding-right:44px}
   .note .arrow{position:absolute;right:24px;bottom:24px;width:28px;height:28px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--fg-2);transition:background .3s,color .3s,border-color .3s}
   .note:hover .arrow{background:var(--accent);color:#000;border-color:var(--accent)}
   @media (max-width:900px){.notes{grid-template-columns:1fr}.note{min-height:0}}
@@ -227,7 +225,7 @@
   .principle{padding:28px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:44px 1fr;gap:16px}
   .principle .k{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.08em;padding-top:4px}
   .principle .h3{font-size:19px;margin-bottom:8px}
-  .principle p{color:var(--fg-2);font-size:14.5px;line-height:1.55;max-width:40ch}
+  .principle p{color:var(--fg-2);font-size:14.5px;line-height:1.55;max-width:42ch}
   @media (max-width:800px){.principles{grid-template-columns:1fr}}
 
   /* ---------- CTA ---------- */
@@ -261,8 +259,9 @@
 </style>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
 <div class="rails" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
 
 <!-- ========== NAV ========== -->
 <header class="nav" id="nav">
@@ -270,43 +269,45 @@
     <a href="#" class="brand" aria-label="Onpar Labs"><span class="mark"></span>Onpar Labs</a>
     <ul>
       <li><a href="#practice">Practice</a></li>
-      <li><a href="#engagement">Engagement</a></li>
-      <li><a href="#notes">Field notes</a></li>
+      <li><a href="#deployment">Deployment</a></li>
+      <li><a href="#impact">Impact</a></li>
       <li><a href="#principles">Principles</a></li>
     </ul>
-    <a href="#engage" class="cta"><span class="dot"></span>Start an engagement</a>
+    <a href="#engage" class="cta"><span class="dot"></span>Engage Onpar Labs</a>
   </div>
 </header>
+
+<main class="page">
 
 <!-- ========== HERO ========== -->
 <section class="hero">
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap hero-top">
-    <div class="mono">Forward Deployed Engineering &nbsp;/&nbsp; Est. 2018</div>
+    <div class="mono">Forward Deployed Engineering &nbsp;//&nbsp; Est. 2018</div>
     <div class="mono" id="clock">— — : — —</div>
   </div>
   <div class="wrap hero-body">
     <h1 class="h1" id="h1">
-      <span class="w"><span>Engineers</span></span> <span class="w"><span>embedded</span></span><br>
-      <span class="w"><span>where&nbsp;the&nbsp;model</span></span><br>
-      <span class="w"><span class="serif">meets the enterprise.</span></span>
+      <span class="w"><span>Frontier&nbsp;AI,</span></span><br>
+      <span class="w"><span>operational&nbsp;at</span></span><br>
+      <span class="w"><span class="serif">institutional scale.</span></span>
     </h1>
     <div class="hero-grid">
       <div class="rv" data-d="2">
-        <p class="lede">Onpar Labs places forward deployed engineers inside AI-native companies to take models from demo to <b>load-bearing production</b>. Eight years. No slide decks. Just systems that ship.</p>
+        <p class="lede">Onpar Labs is a forward deployed engineering firm. Since 2018, its engineers have embedded within AI-native enterprises to take frontier models from pilot to <b>production</b>, under the governance, data, and operational constraints that define real institutions.</p>
         <div class="ctas">
-          <a class="btn primary" href="#engage"><span>Start an engagement</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-          <a class="btn" href="#engagement"><span>How we deploy</span></a>
+          <a class="btn primary" href="#engage"><span>Engage Onpar Labs</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a class="btn" href="#deployment"><span>The deployment model</span></a>
         </div>
       </div>
       <div class="hero-aside rv" data-d="3">
         <div class="console" id="console" aria-hidden="true">
-          <div class="row"><span>$ onpar deploy --env prod</span><span class="ok">●</span></div>
+          <div class="row"><span>$ onpar deploy --env production</span><span class="ok">●</span></div>
           <div class="row"><span>embed.engineers</span><span data-t="3">0</span></div>
           <div class="row"><span>context.ingest</span><span data-t="2.4M tokens">0</span></div>
           <div class="row"><span>eval.pass_rate</span><span data-t="98.7%">0</span></div>
           <div class="row"><span>latency.p95</span><span data-t="412ms">0</span></div>
-          <div class="row"><span>handoff.status</span><span class="ok">transferred</span></div>
+          <div class="row"><span>ownership.status</span><span class="ok">transferred</span></div>
           <div class="row"><span>&gt; <span class="cur"></span></span><span></span></div>
         </div>
       </div>
@@ -314,10 +315,10 @@
   </div>
   <div class="wrap">
     <div class="stats rv" data-d="4">
-      <div><div class="n" data-count="8">0</div><div class="mono">Years in the field</div></div>
-      <div><div class="n" data-count="140" data-suffix="+">0</div><div class="mono">Production deployments</div></div>
-      <div><div class="n" data-count="11">0</div><div class="mono">Industries embedded in</div></div>
-      <div><div class="n" data-count="0">0<sup>days</sup></div><div class="mono">Spent on slide decks</div></div>
+      <div><div class="n" data-count="8">0</div><div class="mono">Years forward deployed</div></div>
+      <div><div class="n" data-count="140" data-suffix="+">0</div><div class="mono">Production systems delivered</div></div>
+      <div><div class="n" data-count="11">0</div><div class="mono">Sectors served</div></div>
+      <div><div class="n" data-count="100" data-suffix="%">0</div><div class="mono">Transferred to client ownership</div></div>
     </div>
   </div>
 </section>
@@ -325,17 +326,17 @@
 <!-- ========== TICKER ========== -->
 <div class="ticker" aria-hidden="true">
   <div class="track" id="track">
-    <div class="item"><b>Financial services</b><i></i>Underwriting copilots</div>
-    <div class="item"><b>Logistics</b><i></i>Autonomous dispatch</div>
-    <div class="item"><b>Healthcare</b><i></i>Clinical documentation</div>
-    <div class="item"><b>Legal</b><i></i>Contract intelligence</div>
-    <div class="item"><b>Energy</b><i></i>Grid anomaly detection</div>
-    <div class="item"><b>Insurance</b><i></i>Claims triage</div>
-    <div class="item"><b>Manufacturing</b><i></i>Vision QA at the line</div>
-    <div class="item"><b>Telecom</b><i></i>Tier-1 support agents</div>
-    <div class="item"><b>Retail</b><i></i>Demand forecasting</div>
-    <div class="item"><b>Defense</b><i></i>Sensor fusion</div>
-    <div class="item"><b>SaaS</b><i></i>In-product agents</div>
+    <div class="item"><em>Sectors //</em><b>Financial services</b><em>↳</em>Credit decisioning</div>
+    <div class="item"><b>Logistics</b><em>↳</em>Autonomous dispatch</div>
+    <div class="item"><b>Healthcare</b><em>↳</em>Clinical documentation</div>
+    <div class="item"><b>Legal</b><em>↳</em>Contract intelligence</div>
+    <div class="item"><b>Energy</b><em>↳</em>Grid anomaly detection</div>
+    <div class="item"><b>Insurance</b><em>↳</em>Claims adjudication</div>
+    <div class="item"><b>Manufacturing</b><em>↳</em>Vision inspection</div>
+    <div class="item"><b>Telecommunications</b><em>↳</em>Tier-1 resolution</div>
+    <div class="item"><b>Retail</b><em>↳</em>Demand forecasting</div>
+    <div class="item"><b>Defense</b><em>↳</em>Sensor fusion</div>
+    <div class="item"><b>Software</b><em>↳</em>In-product agents</div>
   </div>
 </div>
 
@@ -343,47 +344,47 @@
 <section class="sec" id="practice">
   <div class="wrap">
     <div class="sec-head">
-      <div class="rv"><div class="num">01 &nbsp;/&nbsp; The practice</div></div>
-      <h2 class="h2 rv" data-d="1">Three things we do. <span class="serif">Nothing else.</span></h2>
+      <div class="rv"><div class="num">01 &nbsp;//&nbsp; <b>The practice</b></div></div>
+      <h2 class="h2 rv" data-d="1">Embedded engineering, <span class="serif">end to end.</span></h2>
     </div>
     <div class="pillars">
       <article class="pillar rv">
-        <div class="idx"><span>01</span><em>→ Embed</em></div>
+        <div class="idx"><span>01 // Embed</span><em>↳</em></div>
         <div class="glyph"><svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="10" y="10" width="100" height="76"/><rect x="34" y="28" width="52" height="40" stroke="#d8ff3d"/><path d="M10 48h24M86 48h24M60 10v18M60 68v18" stroke-dasharray="2 3"/><circle cx="60" cy="48" r="3" fill="#d8ff3d" stroke="none"/></svg></div>
         <h3 class="h3">Embed</h3>
-        <p>Our engineers sit inside your team, on your repo, on your on-call rotation. They inherit your constraints instead of abstracting them away.</p>
-        <ul><li>On-site or in-timezone</li><li>Your stack</li><li>Your security posture</li></ul>
+        <p>Onpar engineers operate within the client's environment, codebase, and operating rhythm. They inherit the institution's constraints rather than abstracting them away.</p>
+        <ul><li>On-site or in-timezone</li><li>Client stack</li><li>Client security posture</li></ul>
       </article>
       <article class="pillar rv" data-d="1">
-        <div class="idx"><span>02</span><em>→ Build</em></div>
+        <div class="idx"><span>02 // Build</span><em>↳</em></div>
         <div class="glyph"><svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M10 78L40 48l20 14 22-30 18 12"/><path d="M10 86h100" stroke-dasharray="2 3"/><circle cx="40" cy="48" r="2.5" fill="currentColor"/><circle cx="60" cy="62" r="2.5" fill="currentColor"/><circle cx="82" cy="32" r="3" fill="#d8ff3d" stroke="none"/><circle cx="100" cy="44" r="2.5" fill="currentColor"/><path d="M82 10v22" stroke="#d8ff3d" stroke-dasharray="2 3"/></svg></div>
         <h3 class="h3">Build</h3>
-        <p>Retrieval, evals, orchestration, guardrails, observability. The unglamorous eighty percent between a working prompt and a system your CFO trusts.</p>
-        <ul><li>Eval harnesses</li><li>Agent runtimes</li><li>Data pipelines</li><li>Governance</li></ul>
+        <p>Retrieval, evaluation, orchestration, and governance infrastructure. The systems that separate a capable model from a dependable one.</p>
+        <ul><li>Evaluation harnesses</li><li>Agent runtimes</li><li>Data pipelines</li><li>Governance</li></ul>
       </article>
       <article class="pillar rv" data-d="2">
-        <div class="idx"><span>03</span><em>→ Transfer</em></div>
+        <div class="idx"><span>03 // Transfer</span><em>↳</em></div>
         <div class="glyph"><svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="10" y="20" width="40" height="56"/><rect x="70" y="20" width="40" height="56" stroke="#d8ff3d"/><path d="M50 48h20" stroke="#d8ff3d"/><path d="M64 42l6 6-6 6" stroke="#d8ff3d"/><path d="M18 34h24M18 44h24M18 54h14" stroke-dasharray="2 3"/><path d="M78 34h24M78 44h24M78 54h14"/></svg></div>
         <h3 class="h3">Transfer</h3>
-        <p>Every engagement ends with your engineers owning the system. Documentation, runbooks, and a team that no longer needs us. That is the metric.</p>
-        <ul><li>Runbooks</li><li>Pairing</li><li>Exit criteria</li></ul>
+        <p>Every deployment concludes with the client's engineers owning the system in full. Documentation, runbooks, and operational readiness are deliverables, not afterthoughts.</p>
+        <ul><li>Runbooks</li><li>Pairing</li><li>Written exit criteria</li></ul>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ========== ENGAGEMENT ========== -->
-<section class="sec" id="engagement" style="padding-top:0">
+<!-- ========== DEPLOYMENT ========== -->
+<section class="sec" id="deployment" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <div class="rv"><div class="num">02 &nbsp;/&nbsp; The engagement</div></div>
-      <h2 class="h2 rv" data-d="1">Twelve weeks to production. <span class="serif">Then we leave.</span></h2>
+      <div class="rv"><div class="num">02 &nbsp;//&nbsp; <b>The deployment model</b></div></div>
+      <h2 class="h2 rv" data-d="1">Twelve weeks from thesis <span class="serif">to production.</span></h2>
     </div>
     <div class="tl" id="tl">
-      <div class="rv"><div class="wk"><span>Week 00–01</span><span>Discover</span></div><div class="bar"><i></i></div><h3 class="h3">Read the ground truth</h3><p>We read your data, not your roadmap. Two engineers, one week, a written diagnosis of where the model will actually break.</p><div class="out">Output<b>Deployment thesis</b></div></div>
-      <div class="rv" data-d="1"><div class="wk"><span>Week 02–05</span><span>Prove</span></div><div class="bar"><i></i></div><h3 class="h3">Ship the thin slice</h3><p>One workflow end-to-end, in your environment, with real users. Evals from day one so "it works" is a number, not a feeling.</p><div class="out">Output<b>Thin slice in prod</b></div></div>
-      <div class="rv" data-d="2"><div class="wk"><span>Week 06–10</span><span>Harden</span></div><div class="bar"><i></i></div><h3 class="h3">Make it boring</h3><p>Failure modes, fallbacks, cost ceilings, audit trails. We chase the long tail until the pager stops going off.</p><div class="out">Output<b>SLOs met, 30 days</b></div></div>
-      <div class="rv" data-d="3"><div class="wk"><span>Week 11–12</span><span>Transfer</span></div><div class="bar"><i></i></div><h3 class="h3">Hand over the keys</h3><p>Your team runs it. We pair, document, and step back. If you still need us at week thirteen, we did it wrong.</p><div class="out">Output<b>Owned in-house</b></div></div>
+      <div class="rv"><div class="wk"><span>Week 00–01</span><span>Discover</span></div><div class="bar"><i></i></div><h3 class="h3">Ground truth</h3><p>A written deployment thesis grounded in the institution's data and operational reality, not its roadmap.</p><div class="out">Deliverable<b>Deployment thesis</b></div></div>
+      <div class="rv" data-d="1"><div class="wk"><span>Week 02–05</span><span>Prove</span></div><div class="bar"><i></i></div><h3 class="h3">Thin slice</h3><p>One workflow, end to end, in the production environment, with real users and measured performance from the first day.</p><div class="out">Deliverable<b>Thin slice in production</b></div></div>
+      <div class="rv" data-d="2"><div class="wk"><span>Week 06–10</span><span>Harden</span></div><div class="bar"><i></i></div><h3 class="h3">Operational readiness</h3><p>Failure modes, fallbacks, cost controls, and audit trails, resolved until the system meets its service-level objectives.</p><div class="out">Deliverable<b>SLOs met, 30 days</b></div></div>
+      <div class="rv" data-d="3"><div class="wk"><span>Week 11–12</span><span>Transfer</span></div><div class="bar"><i></i></div><h3 class="h3">Ownership</h3><p>The client's team assumes full operation. Onpar Labs steps back by design, with documentation and pairing complete.</p><div class="out">Deliverable<b>Client-owned system</b></div></div>
     </div>
   </div>
 </section>
@@ -391,43 +392,43 @@
 <!-- ========== STATEMENT ========== -->
 <section class="statement">
   <div class="wrap">
-    <p class="big" id="big">Most AI initiatives fail in the last mile, where the model meets legacy data, real users, and a compliance team with veto power. <span class="serif">That mile is our entire business.</span></p>
+    <p class="big" id="big">The distance between a working model and a working institution is measured in data, governance, and operational detail. <span class="serif">Onpar Labs exists to close it.</span></p>
     <div class="foot mono">
-      <span>Onpar Labs &nbsp;/&nbsp; Founding thesis, 2018</span>
+      <span>Onpar Labs &nbsp;//&nbsp; Founding thesis, 2018</span>
       <span>Unchanged</span>
     </div>
   </div>
 </section>
 
-<!-- ========== HOW WE WORK ========== -->
-<section class="sec" id="how">
+<!-- ========== APPROACH ========== -->
+<section class="sec" id="approach">
   <div class="wrap split">
     <div class="sticky">
-      <div class="rv" style="margin-bottom:24px"><div class="num">03 &nbsp;/&nbsp; How we work</div></div>
-      <h2 class="h2 rv" data-d="1">Built for enterprises that are <span class="serif">AI-native,</span> not AI-curious.</h2>
-      <p class="lede rv" data-d="2" style="margin-top:24px;font-size:17px">We don't run workshops. We don't write strategy memos. If your organisation has already decided that models are core infrastructure, we're the people who make that decision true.</p>
+      <div class="rv" style="margin-bottom:24px"><div class="num">03 &nbsp;//&nbsp; <b>The approach</b></div></div>
+      <h2 class="h2 rv" data-d="1">Built for the <span class="serif">AI-native</span> enterprise.</h2>
+      <p class="lede rv" data-d="2" style="margin-top:24px;font-size:17px">Onpar Labs does not run workshops or produce strategy. It partners with organizations that have already decided frontier AI is core infrastructure, and makes that decision operational.</p>
     </div>
     <div class="list">
-      <div class="rv"><div class="k">A</div><div><h3 class="h3">Senior only</h3><p>Every forward deployed engineer has shipped production ML before joining. Median tenure in the field: nine years. No bench, no juniors learning on your budget.</p></div></div>
-      <div class="rv"><div class="k">B</div><div><h3 class="h3">Model-agnostic, opinionated</h3><p>We've deployed on every frontier provider and a dozen open-weight models. We'll tell you which one is wrong for your problem, and why, in writing.</p></div></div>
-      <div class="rv"><div class="k">C</div><div><h3 class="h3">Evals before features</h3><p>The first artifact we ship is a benchmark of your real task. Every subsequent decision is measured against it. Vibes are not a deployment strategy.</p></div></div>
-      <div class="rv"><div class="k">D</div><div><h3 class="h3">Your infra, your data</h3><p>Nothing leaves your perimeter. We work inside your VPC, under your IAM, on your keys. We've cleared security review at banks, hospitals, and a defence prime.</p></div></div>
-      <div class="rv"><div class="k">E</div><div><h3 class="h3">Fixed scope, fixed exit</h3><p>Engagements are priced per outcome with a written exit criterion. We are structurally incentivised to make ourselves unnecessary.</p></div></div>
+      <div class="rv"><div class="k">A</div><div><h3 class="h3">Senior practitioners</h3><p>Every forward deployed engineer has shipped production machine learning systems prior to joining. Median field tenure: nine years.</p></div></div>
+      <div class="rv"><div class="k">B</div><div><h3 class="h3">Model-agnostic, evidence-led</h3><p>Deployments span every frontier provider and the leading open-weight models. Recommendations are made in writing, with evidence.</p></div></div>
+      <div class="rv"><div class="k">C</div><div><h3 class="h3">Evaluation first</h3><p>The first artifact of any engagement is a benchmark of the institution's real task. Every subsequent decision is measured against it.</p></div></div>
+      <div class="rv"><div class="k">D</div><div><h3 class="h3">Sovereign deployment</h3><p>Nothing leaves the client perimeter. Onpar engineers work inside the client's cloud, identity, and key management, and have cleared security review at banks, hospitals, and defense primes.</p></div></div>
+      <div class="rv"><div class="k">E</div><div><h3 class="h3">Defined exit</h3><p>Engagements are priced per outcome with written exit criteria. The firm is structurally aligned to make itself unnecessary.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- ========== FIELD NOTES ========== -->
-<section class="sec" id="notes" style="padding-top:0">
+<!-- ========== IMPACT ========== -->
+<section class="sec" id="impact" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <div class="rv"><div class="num">04 &nbsp;/&nbsp; Field notes</div></div>
-      <h2 class="h2 rv" data-d="1">Outcomes, <span class="serif">not case studies.</span></h2>
+      <div class="rv"><div class="num">04 &nbsp;//&nbsp; <b>Impact studies</b></div></div>
+      <h2 class="h2 rv" data-d="1">Impact, measured <span class="serif">in production.</span></h2>
     </div>
     <div class="notes">
-      <article class="note rv"><div class="tag"><span>Global insurer</span><span>FN-031</span></div><div class="metric"><div class="n">71<small>%</small></div><div class="l">Claims auto-adjudicated</div></div><h3 class="h3">Claims triage at scale</h3><p>Replaced a rules engine with a retrieval-grounded agent, audited against 40k historical claims. Live in 9 weeks across 3 regions.</p><span class="arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M5 3h8v8"/></svg></span></article>
-      <article class="note rv" data-d="1"><div class="tag"><span>Tier-1 bank</span><span>FN-047</span></div><div class="metric"><div class="n">4<small>→ 0.3</small></div><div class="l">Days to underwriting decision</div></div><h3 class="h3">Underwriting copilot</h3><p>Embedded three engineers in the credit desk. Shipped a copilot under model-risk governance with full decision lineage. Passed audit first time.</p><span class="arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M5 3h8v8"/></svg></span></article>
-      <article class="note rv" data-d="2"><div class="tag"><span>Logistics network</span><span>FN-052</span></div><div class="metric"><div class="n">$18<small>M / yr</small></div><div class="l">Routing cost removed</div></div><h3 class="h3">Autonomous dispatch</h3><p>LLM planner over a legacy TMS with a hard optimiser in the loop. Human override rate fell below 2% by week eleven. Team owned it by week twelve.</p><span class="arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M5 3h8v8"/></svg></span></article>
+      <article class="note rv"><div class="tag"><span>Impact study // <b>Global insurer</b></span><span>IS-031</span></div><div class="metric"><div class="n">71<small>%</small></div><div class="l">Claims adjudicated autonomously</div></div><h3 class="h3">Claims adjudication at scale</h3><p>A retrieval-grounded agent replaced a legacy rules engine, validated against 40,000 historical claims. Live across three regions in nine weeks.</p><span class="arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M5 3h8v8"/></svg></span></article>
+      <article class="note rv" data-d="1"><div class="tag"><span>Impact study // <b>Tier-1 bank</b></span><span>IS-047</span></div><div class="metric"><div class="n">4<small>→ 0.3</small></div><div class="l">Days to underwriting decision</div></div><h3 class="h3">Underwriting decisioning</h3><p>Three engineers embedded within the credit desk delivered a decisioning system under model-risk governance, with full lineage. Passed audit on first review.</p><span class="arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M5 3h8v8"/></svg></span></article>
+      <article class="note rv" data-d="2"><div class="tag"><span>Impact study // <b>Logistics network</b></span><span>IS-052</span></div><div class="metric"><div class="n">$18<small>M / yr</small></div><div class="l">Routing cost removed</div></div><h3 class="h3">Autonomous dispatch</h3><p>A language-model planner over a legacy transport system, with a deterministic optimizer in the loop. Human override rate below two percent by week eleven.</p><span class="arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M5 3h8v8"/></svg></span></article>
     </div>
   </div>
 </section>
@@ -436,16 +437,16 @@
 <section class="sec" id="principles" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <div class="rv"><div class="num">05 &nbsp;/&nbsp; Principles</div></div>
-      <h2 class="h2 rv" data-d="1">Eight years. <span class="serif">Six rules.</span></h2>
+      <div class="rv"><div class="num">05 &nbsp;//&nbsp; <b>Principles</b></div></div>
+      <h2 class="h2 rv" data-d="1">Eight years. <span class="serif">Six principles.</span></h2>
     </div>
     <div class="principles">
-      <div class="principle rv"><div class="k">01</div><div><h3 class="h3">Production is the only demo.</h3><p>If it isn't handling real traffic under real constraints, it hasn't been built yet.</p></div></div>
-      <div class="principle rv" data-d="1"><div class="k">02</div><div><h3 class="h3">Read the data before the deck.</h3><p>The failure mode is always in the data. The roadmap is never where the problem lives.</p></div></div>
-      <div class="principle rv"><div class="k">03</div><div><h3 class="h3">Measure or it didn't happen.</h3><p>Every claim has an eval behind it. Every eval is one your team can rerun without us.</p></div></div>
-      <div class="principle rv" data-d="1"><div class="k">04</div><div><h3 class="h3">Boring beats clever.</h3><p>The system your on-call engineer can debug at 3am is the system that stays deployed.</p></div></div>
-      <div class="principle rv"><div class="k">05</div><div><h3 class="h3">Own the last mile.</h3><p>Integration, permissions, edge cases, politics. We don't hand those off. They're the job.</p></div></div>
-      <div class="principle rv" data-d="1"><div class="k">06</div><div><h3 class="h3">Leave.</h3><p>Success is the day your team doesn't need to call us. We plan for it from day one.</p></div></div>
+      <div class="principle rv"><div class="k">01</div><div><h3 class="h3">Production is the only demonstration.</h3><p>A system that is not handling live traffic under real constraints has not yet been built.</p></div></div>
+      <div class="principle rv" data-d="1"><div class="k">02</div><div><h3 class="h3">Data before roadmap.</h3><p>Failure lives in the data. Diagnosis begins there.</p></div></div>
+      <div class="principle rv"><div class="k">03</div><div><h3 class="h3">Measured, or it did not happen.</h3><p>Every claim is backed by an evaluation the client can rerun independently.</p></div></div>
+      <div class="principle rv" data-d="1"><div class="k">04</div><div><h3 class="h3">Reliability over novelty.</h3><p>The system an on-call engineer can debug at three in the morning is the system that remains deployed.</p></div></div>
+      <div class="principle rv"><div class="k">05</div><div><h3 class="h3">Own the last mile.</h3><p>Integration, permissions, edge cases, and institutional process are the work, not the overhead.</p></div></div>
+      <div class="principle rv" data-d="1"><div class="k">06</div><div><h3 class="h3">Exit by design.</h3><p>Success is the day the client no longer needs Onpar Labs. Every engagement plans for it from the outset.</p></div></div>
     </div>
   </div>
 </section>
@@ -454,11 +455,11 @@
 <section class="cta-sec" id="engage">
   <div class="wrap cta-grid">
     <div>
-      <div class="kicker on mono rv" style="margin-bottom:28px">Now accepting Q4 engagements</div>
-      <h2 class="h2 rv" data-d="1">Bring us the workflow that <span class="serif">everyone's afraid</span> to automate.</h2>
+      <div class="kicker on mono rv" style="margin-bottom:28px">Accepting engagements &nbsp;//&nbsp; Q4 2026</div>
+      <h2 class="h2 rv" data-d="1">Bring the workflow the institution <span class="serif">depends on.</span></h2>
       <div class="ctas rv" data-d="2">
-        <a class="btn primary" href="mailto:deploy@onpar.in"><span>Start an engagement</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-        <a class="btn" href="mailto:careers@onpar.in"><span>Join as an FDE</span></a>
+        <a class="btn primary" href="mailto:deploy@onpar.in"><span>Engage Onpar Labs</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a class="btn" href="mailto:careers@onpar.in"><span>Careers ↗</span></a>
       </div>
     </div>
     <div class="right rv" data-d="3">
@@ -475,10 +476,10 @@
     <div class="foot-grid">
       <div>
         <a href="#" class="brand"><span class="mark"></span>Onpar Labs</a>
-        <p>Forward deployed engineering for AI-native enterprises. Founded 2018. Operating across North America, Europe, and India.</p>
+        <p>Forward deployed engineering for AI-native enterprises. Established 2018. Operating across North America, Europe, and India.</p>
       </div>
-      <div><h5>Firm</h5><ul><li><a href="#practice">Practice</a></li><li><a href="#engagement">Engagement model</a></li><li><a href="#notes">Field notes</a></li><li><a href="#principles">Principles</a></li></ul></div>
-      <div><h5>Work with us</h5><ul><li><a href="mailto:deploy@onpar.in">Start an engagement</a></li><li><a href="mailto:careers@onpar.in">Careers</a></li><li><a href="mailto:press@onpar.in">Press</a></li></ul></div>
+      <div><h5>Firm</h5><ul><li><a href="#practice">Practice</a></li><li><a href="#deployment">Deployment model</a></li><li><a href="#impact">Impact studies</a></li><li><a href="#principles">Principles</a></li></ul></div>
+      <div><h5>Engage</h5><ul><li><a href="mailto:deploy@onpar.in">Engage Onpar Labs</a></li><li><a href="mailto:careers@onpar.in">Careers</a></li><li><a href="mailto:press@onpar.in">Press</a></li></ul></div>
       <div><h5>Offices</h5><ul><li><a href="#">Bengaluru</a></li><li><a href="#">London</a></li><li><a href="#">New York</a></li></ul></div>
     </div>
     <div class="wordmark" aria-hidden="true">ONPAR LABS</div>
@@ -489,6 +490,8 @@
   </div>
 </footer>
 
+</main>
+
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -498,15 +501,15 @@
   const onScroll = () => nav.classList.toggle('scrolled', scrollY > 24);
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
-  /* clock (UTC, mono) */
+  /* clock (UTC) */
   const clock = document.getElementById('clock');
-  const tick = () => { const d = new Date(); clock.textContent = d.toISOString().slice(11,19) + ' UTC'; };
+  const tick = () => { clock.textContent = new Date().toISOString().slice(11,19) + ' UTC'; };
   tick(); setInterval(tick, 1000);
 
   /* headline words */
   const h1 = document.getElementById('h1');
   requestAnimationFrame(() => requestAnimationFrame(() => h1.classList.add('in')));
-  setTimeout(() => h1.classList.add('in'), 400); // fallback if rAF is throttled (background tab)
+  setTimeout(() => h1.classList.add('in'), 400);
 
   /* reveal */
   const io = new IntersectionObserver(es => es.forEach(e => {
@@ -520,19 +523,17 @@
   function count(el){
     if (el.dataset.done) return; el.dataset.done = 1;
     const target = +el.dataset.count, suffix = el.dataset.suffix || '';
-    const sup = el.querySelector('sup'); const supHTML = sup ? sup.outerHTML : '';
-    if (reduce || target === 0) { el.innerHTML = target + suffix + supHTML; return; }
+    if (reduce || target === 0) { el.textContent = target + suffix; return; }
     const t0 = performance.now(), dur = 1400;
     (function step(t){
       const p = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-p,4);
-      el.innerHTML = Math.round(target*e) + suffix + supHTML;
+      el.textContent = Math.round(target*e) + suffix;
       if (p<1) requestAnimationFrame(step);
     })(t0);
   }
 
   /* console typing */
-  const rows = document.querySelectorAll('#console [data-t]');
-  rows.forEach((r,i) => {
+  document.querySelectorAll('#console [data-t]').forEach((r,i) => {
     const target = r.dataset.t;
     setTimeout(() => {
       if (reduce) { r.textContent = target; return; }
@@ -568,41 +569,124 @@
   const track = document.getElementById('track');
   track.innerHTML += track.innerHTML;
 
-  /* hero field: drifting particle lattice with cursor influence */
-  const c = document.getElementById('field'), ctx = c.getContext('2d');
-  let W, H, pts = [], mouse = {x:-1e4, y:-1e4}, dpr = Math.min(devicePixelRatio||1, 2);
-  function resize(){
-    W = c.clientWidth; H = c.clientHeight; c.width = W*dpr; c.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-    const gap = W > 900 ? 44 : 34; pts = [];
-    for (let y = gap; y < H; y += gap) for (let x = gap; x < W; x += gap)
-      pts.push({x, y, ox:x, oy:y, ph: Math.random()*Math.PI*2, a: .25 + Math.random()*.5});
-  }
-  resize(); addEventListener('resize', resize);
-  addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; }, {passive:true});
-  addEventListener('pointerleave', () => { mouse.x = mouse.y = -1e4; });
-  let t = 0, raf;
-  function frame(){
-    t += .008; ctx.clearRect(0,0,W,H);
-    const gx = W*0.68, gy = H*0.42; // glow centre matches CSS radial
-    for (const p of pts){
-      const dx = p.ox - mouse.x, dy = p.oy - mouse.y, d2 = dx*dx+dy*dy, R = 180;
-      let px = p.ox + Math.sin(t + p.ph)*3, py = p.oy + Math.cos(t*1.3 + p.ph)*3;
-      if (d2 < R*R){ const d = Math.sqrt(d2)||1, f = (1-d/R)*22; px += dx/d*f; py += dy/d*f; }
-      const gdx = px-gx, gdy = py-gy, g = Math.max(0, 1 - Math.sqrt(gdx*gdx+gdy*gdy)/(W*0.45));
-      const near = d2 < R*R ? (1 - Math.sqrt(d2)/R) : 0;
-      const alpha = (0.08 + g*0.22 + near*0.6) * p.a;
-      ctx.fillStyle = near > 0.15 ? `rgba(216,255,61,${alpha})` : `rgba(255,255,255,${alpha})`;
-      ctx.fillRect(px-0.75, py-0.75, 1.5, 1.5);
+  /* =====================================================================
+     BACKGROUND: WebGL domain-warped terrain. Contour lines drift and fold
+     over time, bend toward the cursor, parallax with scroll, and a slow
+     survey line sweeps the field. Falls back to a 2D particle lattice.
+     ===================================================================== */
+  const glc = document.getElementById('gl');
+  const mouse = {x:-1e4, y:-1e4, tx:-1e4, ty:-1e4};
+  addEventListener('pointermove', e => { mouse.tx = e.clientX; mouse.ty = e.clientY; }, {passive:true});
+  addEventListener('pointerleave', () => { mouse.tx = mouse.ty = -1e4; });
+
+  function initGL(){
+    const gl = glc.getContext('webgl', {antialias:false, alpha:false, depth:false, stencil:false, powerPreference:'high-performance'});
+    if (!gl) return false;
+    if (!gl.getExtension('OES_standard_derivatives')) return false;
+    const vs = `attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
+    const fs = `
+      #extension GL_OES_standard_derivatives : enable
+      precision highp float;
+      uniform vec2 u_res; uniform float u_time; uniform vec2 u_mouse; uniform float u_scroll; uniform float u_fade;
+      float hash(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
+      float noise(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);
+        return mix(mix(hash(i),hash(i+vec2(1,0)),f.x), mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x), f.y); }
+      float fbm(vec2 p){ float v=0., a=.5; mat2 m=mat2(1.6,1.2,-1.2,1.6);
+        for(int i=0;i<5;i++){ v+=a*noise(p); p=m*p; a*=.5; } return v; }
+      void main(){
+        vec2 uv=(gl_FragCoord.xy-.5*u_res)/u_res.y;
+        vec2 m=(u_mouse-.5*u_res)/u_res.y;
+        float t=u_time*.045;
+        vec2 p=uv*1.7 + vec2(0., u_scroll*0.00045);
+        /* cursor gravity well: pulls the field toward the pointer */
+        vec2 d=uv-m; float md=length(d); float well=exp(-md*md*9.);
+        p -= normalize(d+1e-4)*well*.22;
+        /* domain warp */
+        vec2 q=vec2(fbm(p+t), fbm(p+vec2(5.2,1.3)-t*.7));
+        vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)+t*.5), fbm(p+3.*q+vec2(8.3,2.8)-t*.3));
+        float h=fbm(p+1.9*r);
+        /* contours, anti-aliased with screen-space derivatives */
+        float fw=fwidth(h)*1.5;
+        float minor=1.-smoothstep(0., fw*1.6+.003, abs(fract(h*18.)-.5)/18.);
+        float major=1.-smoothstep(0., fw*1.6+.0045, abs(fract(h*4.5)-.5)/4.5);
+        /* survey line sweeping down the page */
+        float sy = fract(u_time*.05)*2.2-1.1;
+        float sweep = exp(-pow((uv.y - sy)*10., 2.));
+        /* falloff toward edges so it never fights the copy */
+        float vign = smoothstep(1.25, .35, length(uv*vec2(.75,1.)));
+        vec3 base=vec3(.0275);
+        vec3 ink=vec3(.62,.62,.6);
+        vec3 acc=vec3(.847,1.,.239);
+        vec3 col=base;
+        col += minor*ink*(.08+.08*h)*vign;
+        col += major*mix(ink,acc,.35)*(.15+.10*h)*vign;
+        col += major*acc*sweep*.35*vign;
+        col += minor*acc*well*.55;
+        col += major*acc*well*.6;
+        /* faint elevation shading so the terrain reads as a surface */
+        col += (h-.5)*.035*vign;
+        col = mix(base, col, u_fade);
+        gl_FragColor=vec4(col,1.);
+      }`;
+    function sh(type, src){ const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s);
+      if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){ console.warn(gl.getShaderInfoLog(s)); return null; } return s; }
+    const v=sh(gl.VERTEX_SHADER,vs), f=sh(gl.FRAGMENT_SHADER,fs); if(!v||!f) return false;
+    const pr=gl.createProgram(); gl.attachShader(pr,v); gl.attachShader(pr,f); gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS)) return false;
+    gl.useProgram(pr);
+    const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    const a=gl.getAttribLocation(pr,'a'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+    const U=n=>gl.getUniformLocation(pr,n);
+    const uRes=U('u_res'), uTime=U('u_time'), uMouse=U('u_mouse'), uScroll=U('u_scroll'), uFade=U('u_fade');
+    let W,H,scale;
+    function resize(){
+      const dpr=Math.min(devicePixelRatio||1,2);
+      scale = (innerWidth>1200 ? .6 : .75) * dpr;    // render below native res; the field is soft by design
+      W=Math.floor(innerWidth*scale); H=Math.floor(innerHeight*scale);
+      glc.width=W; glc.height=H; gl.viewport(0,0,W,H);
     }
-    // sparse scan line
-    const sy = (t*90) % (H+200) - 100;
-    const grad = ctx.createLinearGradient(0, sy-60, 0, sy+60);
-    grad.addColorStop(0,'rgba(216,255,61,0)'); grad.addColorStop(.5,'rgba(216,255,61,.05)'); grad.addColorStop(1,'rgba(216,255,61,0)');
-    ctx.fillStyle = grad; ctx.fillRect(0, sy-60, W, 120);
-    raf = requestAnimationFrame(frame);
+    resize(); addEventListener('resize', resize);
+    let raf, t0=performance.now(), running=true;
+    function frame(now){
+      if(!running) return;
+      mouse.x += (mouse.tx-mouse.x)*.08; mouse.y += (mouse.ty-mouse.y)*.08;
+      const fade = Math.max(.24, 1 - scrollY/(innerHeight*1.4));
+      gl.uniform2f(uRes,W,H);
+      gl.uniform1f(uTime,(now-t0)/1000);
+      gl.uniform2f(uMouse,mouse.x*scale,(innerHeight-mouse.y)*scale);
+      gl.uniform1f(uScroll,scrollY);
+      gl.uniform1f(uFade,fade);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+      raf=requestAnimationFrame(frame);
+    }
+    if (reduce){ frame(t0); running=false; }
+    else raf=requestAnimationFrame(frame);
+    document.addEventListener('visibilitychange',()=>{ if(reduce) return; if(document.hidden){running=false;cancelAnimationFrame(raf);} else {running=true;raf=requestAnimationFrame(frame);} });
+    return true;
   }
-  if (!reduce) frame(); else { t = 1; frame(); cancelAnimationFrame(raf); }
-  document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else if (!reduce) frame(); });
+
+  /* fallback: 2D particle lattice in the hero */
+  function initField(){
+    glc.remove();
+    const c=document.getElementById('field'); c.style.display='block';
+    const ctx=c.getContext('2d'); let W,H,pts=[],dpr=Math.min(devicePixelRatio||1,2);
+    function resize(){ W=c.clientWidth;H=c.clientHeight;c.width=W*dpr;c.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+      const gap=W>900?44:34;pts=[];for(let y=gap;y<H;y+=gap)for(let x=gap;x<W;x+=gap)pts.push({ox:x,oy:y,ph:Math.random()*6.28,a:.25+Math.random()*.5}); }
+    resize(); addEventListener('resize',resize);
+    let t=0;
+    (function frame(){ t+=.008; ctx.clearRect(0,0,W,H);
+      const r=c.getBoundingClientRect(), mx=mouse.tx-r.left, my=mouse.ty-r.top;
+      for(const p of pts){ const dx=p.ox-mx,dy=p.oy-my,d2=dx*dx+dy*dy,R=180;
+        let px=p.ox+Math.sin(t+p.ph)*3,py=p.oy+Math.cos(t*1.3+p.ph)*3;
+        const near=d2<R*R?(1-Math.sqrt(d2)/R):0; if(near){const d=Math.sqrt(d2)||1,f=near*22;px+=dx/d*f;py+=dy/d*f;}
+        const alpha=(.12+near*.6)*p.a; ctx.fillStyle=near>.15?`rgba(216,255,61,${alpha})`:`rgba(255,255,255,${alpha})`;
+        ctx.fillRect(px-.75,py-.75,1.5,1.5); }
+      if(!reduce) requestAnimationFrame(frame); })();
+  }
+
+  let ok=false; try { ok=initGL(); } catch(e){ ok=false; }
+  if(!ok) initField();
 })();
 </script>
 </body>
