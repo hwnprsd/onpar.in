@@ -485,7 +485,7 @@
     <div class="wordmark" aria-hidden="true">ONPAR LABS</div>
     <div class="foot-bottom">
       <span>© 2018–2026 Onpar Labs. All rights reserved.</span>
-      <span>Security &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; SOC 2 Type II</span>
+      <span>Security &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; SOC 2 Type II <em style="font-style:normal;color:var(--accent)">// in progress</em></span>
     </div>
   </div>
 </footer>
@@ -605,10 +605,16 @@
         vec2 q=vec2(fbm(p+t), fbm(p+vec2(5.2,1.3)-t*.7));
         vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)+t*.5), fbm(p+3.*q+vec2(8.3,2.8)-t*.3));
         float h=fbm(p+1.9*r);
-        /* contours, anti-aliased with screen-space derivatives */
-        float fw=fwidth(h)*1.5;
-        float minor=1.-smoothstep(0., fw*1.6+.003, abs(fract(h*18.)-.5)/18.);
-        float major=1.-smoothstep(0., fw*1.6+.0045, abs(fract(h*4.5)-.5)/4.5);
+        /* contours at a fixed pixel width: distance to the nearest iso-line,
+           divided by the per-pixel change in height, is a distance in pixels */
+        float fw=max(fwidth(h),1e-5);
+        float dm=abs(fract(h*18.)-.5)/18./fw;
+        float dM=abs(fract(h*4.5)-.5)/4.5/fw;
+        float minor=1.-smoothstep(.45,1.25,dm);
+        float major=1.-smoothstep(.7,1.8,dM);
+        /* where the terrain is flat the iso-lines would smear into blobs; let them fade out there */
+        float att=smoothstep(.00025,.0014,fw);
+        minor*=att; major*=att;
         /* survey line sweeping down the page */
         float sy = fract(u_time*.05)*2.2-1.1;
         float sweep = exp(-pow((uv.y - sy)*10., 2.));
@@ -618,11 +624,11 @@
         vec3 ink=vec3(.62,.62,.6);
         vec3 acc=vec3(.847,1.,.239);
         vec3 col=base;
-        col += minor*ink*(.08+.08*h)*vign;
-        col += major*mix(ink,acc,.35)*(.15+.10*h)*vign;
-        col += major*acc*sweep*.35*vign;
-        col += minor*acc*well*.55;
-        col += major*acc*well*.6;
+        col += minor*ink*(.13+.10*h)*vign;
+        col += major*mix(ink,acc,.35)*(.24+.12*h)*vign;
+        col += major*acc*sweep*.5*vign;
+        col += minor*acc*well*.7;
+        col += major*acc*well*.8;
         /* faint elevation shading so the terrain reads as a surface */
         col += (h-.5)*.035*vign;
         col = mix(base, col, u_fade);
@@ -639,17 +645,21 @@
     const a=gl.getAttribLocation(pr,'a'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
     const U=n=>gl.getUniformLocation(pr,n);
     const uRes=U('u_res'), uTime=U('u_time'), uMouse=U('u_mouse'), uScroll=U('u_scroll'), uFade=U('u_fade');
-    let W,H,scale;
+    let W,H,scale,quality=1;                          // quality 1 = native device pixels
     function resize(){
       const dpr=Math.min(devicePixelRatio||1,2);
-      scale = (innerWidth>1200 ? .6 : .75) * dpr;    // render below native res; the field is soft by design
+      scale = dpr*quality;
       W=Math.floor(innerWidth*scale); H=Math.floor(innerHeight*scale);
       glc.width=W; glc.height=H; gl.viewport(0,0,W,H);
     }
     resize(); addEventListener('resize', resize);
-    let raf, t0=performance.now(), running=true;
+    let raf, t0=performance.now(), running=true, last=0, slow=0, checked=0;
     function frame(now){
       if(!running) return;
+      /* adaptive quality: if the GPU can't hold ~45fps at native res, step down once or twice */
+      if(last){ const dt=now-last; checked++; if(dt>24) slow++;
+        if(checked===90){ if(slow>45 && quality>.55){ quality-=.25; resize(); } checked=0; slow=0; } }
+      last=now;
       mouse.x += (mouse.tx-mouse.x)*.08; mouse.y += (mouse.ty-mouse.y)*.08;
       const fade = Math.max(.24, 1 - scrollY/(innerHeight*1.4));
       gl.uniform2f(uRes,W,H);
